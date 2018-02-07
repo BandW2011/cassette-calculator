@@ -13,8 +13,7 @@ def timeToSec(input):
     return int(input.split(":")[0]) * 60 + int(input.split(":")[1])
 
 def secToTime(input):
-    time = str(input // 60) + ":" + str(input % 60)
-    return time
+    return str(input // 60) + ":" + '{:02d}'.format(input % 60)
 
 def main():
     print("* Cassette Calculator *")
@@ -28,16 +27,17 @@ def main():
 
     if choice == "1":
         print("(Enter \'q\' to quit)")
-        tracks = []
+        total_time = 0
         i = 0
         while (True):
             i += 1
             print("Track " + str(i) + " length (min:sec): ")
             choice = input("> ")
             if isTime(choice):
-                tracks += choice
-            if str.lower(choice) == "quit" or str.lower(choice) == "q":
+                total_time += timeToSec(choice)
+            else:
                 break
+        print("Total album length is " + secToTime(total_time))
     elif choice == "4":
         print("Input time in format (min:sec): ")
         choice = input("> ")
