@@ -2,32 +2,50 @@
 
 import time
 
-def isTime(choice):
+def isTime(str):
     try:
-        time.strptime(choice, '%M:%S')
+        time.strptime(str, '%M:%S')
         return True
     except ValueError:
         return False
 
+def timeToSec(input):
+    return int(input.split(":")[0]) * 60 + int(input.split(":")[1])
+
+def secToTime(input):
+    time = str(input // 60) + ":" + str(input % 60)
+    return time
+
 def main():
     print("* Cassette Calculator *")
     print("Select an option:")
-    print("1) Enter tracks to split album evenly")
-    print("2) Enter tracks to find ideal side length")
+    print("1) Enter tracks to find album length")
+    print("2) Enter tracks to split album evenly")
+    print("3) Enter tracks to find ideal side length")
+    print("4) Convert min:sec to seconds")
+    print("5) Convert seconds to min:sec")
     choice = input("> ")
 
     if choice == "1":
         print("(Enter \'q\' to quit)")
         tracks = []
-        for i in range(1, 1000):
+        i = 0
+        while (True):
+            i += 1
             print("Track " + str(i) + " length (min:sec): ")
             choice = input("> ")
             if isTime(choice):
-                tracks += (i, choice)
+                tracks += choice
             if str.lower(choice) == "quit" or str.lower(choice) == "q":
                 break
-        total_time = 0
-        print(tracks[1])
-        # for i in range(0, len(tracks)
+    elif choice == "4":
+        print("Input time in format (min:sec): ")
+        choice = input("> ")
+        print(timeToSec(choice))
+    elif choice == "5":
+        print("Input time in seconds: ")
+        choice = input("> ")
+        print(secToTime(int(choice)))
 
 main()
+
